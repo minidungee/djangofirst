@@ -3,8 +3,9 @@ from rest_framework.decorators import api_view
 
 #python에서 @으로 시작하는 단어는 decorator라고 하는데 실제 함수를 호출하기 전에
 #특정 내용을 삽입해서 함수를 실행합니다.
-#GET 요청이 오면 함수를 호출
+#반복적으로 사용하는 내용이나 직접 작성하기 번거로운 내용을 decorator로 만듭니다.
 
+#GET 요청이 오면 함수를 호출
 @api_view(['GET'])
 def hello(request):
   return Response("Hello REST API")
@@ -35,6 +36,8 @@ def soccersAPI(request):
 
 @api_view(['GET'])
 def oneSoccerAPI(request, bid):
+  #Soccer 테이블에서 bid 컬럼의 값이 bid인 값을 찾아옵니다.
   soccer = get_object_or_404(Soccer, bid=bid)
+  #출력할 수 있도록 변환
   serializer = SoccerSerializer(soccer)
   return Response(serializer.data)
